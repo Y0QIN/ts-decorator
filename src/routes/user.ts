@@ -44,7 +44,7 @@ class user {
             ctx.body = {status: 0, msg: '该用户名已存在'};
             return;
         }
-        userList.push(ctx.body);
+        userList.push(ctx.request.body);
         ctx.body = {status: 1, msg: '添加用户成功'};
     }
 
@@ -59,7 +59,7 @@ class user {
         }
     })
     public async updateUser(ctx) {
-        let filterUsers = userList.filter(user => user.name === ctx.params.oldname);
+        let filterUsers = userList.filter(user => user.name === ctx.params.name);
         if (filterUsers.length < 1) {
             ctx.body = {status: 0, msg: '用户不存在'};
             return;
