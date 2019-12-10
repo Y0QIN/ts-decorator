@@ -13,7 +13,7 @@ const userList = [
 class user {
     @get('/users', {middlewares: [requestCors, requestAuth]})
     public async list(ctx) {
-        ctx.body = {status: 0, data: userList};
+        ctx.body = {status: 1, data: userList};
     }
 
     @get('/users/:name', {middlewares: [requestCors, requestAuth]})
@@ -76,8 +76,8 @@ class user {
                 break;
             }
         }
-        let status = i < userList.length ? 0 : 1;
-        let msg = i < userList.length ? '用户不存在' : '用户信息更新成功';
+        let status = i > userList.length ? 0 : 1;
+        let msg = i > userList.length ? '用户不存在' : '用户信息更新成功';
         ctx.body = {status, msg};
     }
 
