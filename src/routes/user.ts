@@ -39,9 +39,9 @@ class user {
         }
     })
     public async addUser(ctx) {
-        let filterUsers = userList.filter(user => user.name === ctx.body.name);
+        let filterUsers = userList.filter(user => user.name === ctx.request.body.name);
         if (filterUsers.length > 0) {
-            ctx.body = {status: 0, msg: '用户名已存在'};
+            ctx.body = {status: 0, msg: '该用户名已存在'};
             return;
         }
         userList.push(ctx.body);
@@ -59,9 +59,14 @@ class user {
         }
     })
     public async updateUser(ctx) {
-        let filterUsers = userList.filter(user => user.name === ctx.body.name);
+        let filterUsers = userList.filter(user => user.name === ctx.params.oldname);
+        if (filterUsers.length < 1) {
+            ctx.body = {status: 0, msg: '用户不存在'};
+            return;
+        }
+        filterUsers = userList.filter(user => user.name === ctx.request.body.name);
         if (filterUsers.length > 0) {
-            ctx.body = {status: 0, msg: '用户名已存在'};
+            ctx.body = {status: 0, msg: '用户名已存在,请重新输入'};
             return;
         }
         let i = 0;
