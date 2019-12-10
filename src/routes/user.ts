@@ -3,7 +3,7 @@ import {get, post, put, del, prefix, validator} from '../utils/decorators';
 import {requestAuth} from "../middlewares/auth";
 import {requestCors} from "../middlewares/cors";
 
-const userList = [
+let userList = [
     {name: 'KangKang', age: 20},
     {name: 'Jane', age: 20},
     {name: 'Maria', age: 20}
@@ -91,6 +91,7 @@ class user {
         let users = userList.filter(user => user.name != ctx.params.name);
         let status = users.length < userList.length ? 1 : 0;
         let msg = users.length < userList.length ? '用户删除成功' : '用户不存在';
+        userList = users;
         ctx.body = {status, msg};
     }
 
